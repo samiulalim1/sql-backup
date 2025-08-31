@@ -1,0 +1,40 @@
+body {
+	background-color: #0b1020;
+	color: #e8ecf6;
+}
+
+.hero {
+	padding: 60px 10px 30px;
+	text-align: center;
+}
+
+.hero h1 {
+	font-size: 2.2rem;
+	margin-bottom: .6rem;
+}
+
+.hero p {
+	color: #8b98b5;
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.btn-download {
+	padding: 14px 24px;
+	font-size: 1.1rem;
+	font-weight: 600;
+	min-width: 240px;
+}
+
+table.requirements td,
+table.requirements th {
+	vertical-align: middle;
+	text-align: center;
+}
+
+footer {
+	padding: 30px 0;
+	text-align: center;
+	color: #8b98b5;
+	font-size: .9rem;
+}

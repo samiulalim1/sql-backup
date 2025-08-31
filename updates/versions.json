@@ -1,0 +1,17 @@
+[
+  {
+    "code": 100,
+    "type": "beta",
+    "version": "1.0.0",
+    "date": "2025-09-01",
+    "notes": "Initial UI release",
+    "git": "https://raw.githubusercontent.com/samiulalim1/sql-backup/refs/heads/main/pkgs/1.0.0/install.pkg"
+  },{
+    "code": 101,
+    "type": "beta",
+    "version": "1.0.1",
+    "date": "2025-09-01",
+    "notes": "Testing to fix the update.",
+    "git": "https://raw.githubusercontent.com/samiulalim1/sql-backup/refs/heads/main/pkgs/1.0.1/install.pkg"
+  }
+]

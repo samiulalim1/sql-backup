@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>SQL Backup Panel</title>
+	<meta property="og:url" content="./">
+	<meta name="theme-color" content="#12182b">
+	<meta name="robots" content="noindex,follow">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="msapplication-TileColor" content="#12182b">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="icon" href="https://samiulalim1.github.io/sql-backup/files/images/favicon.ico">
+	<meta property="og:image" content="https://samiulalim1.github.io/sql-backup/files/icon.png">
+	<link rel="shortcut icon" href="https://samiulalim1.github.io/sql-backup/files/images/favicon.ico">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+	<style>__STYLE__</style>
+</head>
+<body>
+	<section id="loader">
+		<div class="loaderBlur"></div>
+		<div class="loaderSpinner"></div>
+	</section>
+	<section id="loginView" style="display:none;">
+		<div class="login-card">
+			<div class="login-head">
+				<div class="logo">
+					<i class="fa-solid fa-database"></i>
+				</div>
+				<div>
+					<h1>SQL Backup Panel</h1>
+					<p class="p-muted">Secure your databases with one click backups.</p>
+				</div>
+			</div>
+			<div class="row">
+				<input class="input" id="loginUser" placeholder="Username" autocomplete="username">
+				<input class="input" id="loginPass" type="password" placeholder="Password" autocomplete="current-password">
+				<button id="btnLogin" class="btn">
+					<i class="fa-solid fa-right-to-bracket"></i> Login
+				</button>
+			</div>
+			<div class="login-footer">
+				<a href="https://t.me/mr999plus" target="_blank" class="mute">
+					<i class="fa-brands fa-telegram"></i> 𝑀𝓇. 𝟫𝟫𝟫 𝒫𝓁𝓊𝓈
+				</a>
+				<span>v1.0.1</span>
+			</div>
+		</div>
+	</section>
+	<section id="app" style="display:none;">
+		<aside class="sidebar">
+			<div class="brand">
+				<div class="logo"><i class="fa-solid fa-database"></i></div>
+				<div class="name"><span class="label">SQL Backup</span></div>
+				<button class="icon-btn collapse" id="toggleNav" title="Collapse">
+					<i class="fa-solid fa-angles-left"></i>
+				</button>
+			</div>
+			<nav class="nav" id="nav">
+				<a data-page="dash" class="active">
+					<i class="fa-solid fa-gauge-high"></i>
+					<span class="label">Dashboard</span>
+				</a>
+				<a data-page="databases">
+					<i class="fa-solid fa-server"></i>
+					<span class="label">Databases</span>
+				</a>
+				<a data-page="backups">
+					<i class="fa-solid fa-box-archive"></i>
+					<span class="label">Backups</span>
+				</a>
+				<a data-page="logs">
+					<i class="fa-solid fa-bug"></i>
+					<span class="label">Error Logs</span>
+				</a>
+				<a data-page="bot">
+					<i class="fa-solid fa-robot"></i>
+					<span class="label">Bot Config</span>
+				</a>
+				<a data-page="cron">
+					<i class="fa-solid fa-clock-rotate-left"></i>
+					<span class="label">Cron</span>
+				</a>
+				<a data-page="update">
+					<i class="fa-solid fa-arrows-rotate"></i>
+					<span class="label">Update</span>
+				</a>
+			</nav>
+			<div class="sidebar-footer">
+				<button class="small-btn" id="themeToggle">
+					<i class="fa-solid fa-moon"></i>
+					<span class="label">Theme</span>
+				</button>
+				<button class="small-btn" id="logout">
+					<i class="fa-solid fa-right-from-bracket"></i>
+					<span class="label">Logout</span>
+				</button>
+			</div>
+		</aside>
+		<main class="main">
+			<div class="topbar">
+				<div></div>
+				<div class="top-actions">
+					<button class="icon-btn" id="backupNow" title="Backup Now">
+						<i class="fa-solid fa-cloud-arrow-up"></i>
+					</button>
+					<button class="icon-btn" id="refresh" title="Refresh">
+						<i class="fa-solid fa-rotate-right"></i>
+					</button>
+					<div class="user">
+						<div class="av">
+							<i class="fa-solid fa-user" style="padding: 6px 7px;color: #091022;"></i>
+						</div> 
+						<span class="label" id="userLabel">admin</span>
+					</div>
+				</div>
+			</div>
+			<div class="content">
+				<section id="page-dash" class="section">
+					<div class="grid cols-3">
+						<div class="card kpi">
+							<div>
+								<div class="tag">Total Backups</div>
+								<div class="num" id="kpiBackups">0</div>
+							</div>
+							<i class="fa-solid fa-box-archive"></i>
+						</div>
+						<div class="card kpi">
+							<div>
+								<div class="tag">Last Backup</div>
+								<div class="num" id="kpiLastBackup">—</div>
+							</div>
+							<i class="fa-solid fa-clock"></i>
+						</div>
+						<div class="card kpi">
+							<div>
+								<div class="tag">Errors</div>
+								<div class="num" id="kpiErrors">0</div>
+							</div>
+							<i class="fa-solid fa-triangle-exclamation"></i>
+						</div>
+					</div>
+					<div class="grid cols-2" style="margin-top:14px;">
+						<div class="card">
+							<h3>Quick Actions</h3>
+							<p class="sub">Run a backup, test a connection, or add a database.</p>
+							<div style="display:flex; gap:8px; flex-wrap: wrap; margin-top:8px;">
+								<button class="btn btn-secondary" id="qaTest">
+									<i class="fa-solid fa-plug-circle-check"></i> Test Connection
+								</button>
+								<button class="btn btn-secondary" id="qaAddUser">
+									<i class="fa-solid fa-database"></i> Add Database
+								</button>
+								</div>
+						</div>
+						<div class="card">
+							<h3>Telegram Bot</h3>
+							<p class="sub">Send backup files to Telegram via bot.</p>
+							<div class="grid" style="margin-top:8px;">
+								<div style="display:flex; gap:8px;">
+									<span class="badge" id="botStatus">Not Configured</span>
+								</div>
+								<div class="footnote">Configure in  to enable updates.</div>
+							</div>
+						</div>
+					</div>
+					<div class="grid cols-2" style="margin-top:14px;">
+						<div class="card">
+							<h3>Backup Files</h3>
+							<p class="sub">You have <b id="totalBkps"></b> backups (<b id="bkpsSize"></b>) stored.</p>
+							<p class="sub">They’ll auto-delete in 30 days, or you can clear them now with Clean below.</p>
+							<div style="display:flex; gap:8px; flex-wrap: wrap; margin-top:8px;">
+								<button class="btn btn-secondary" id="bkpDelete">
+									<i class="fa-solid fa-trash"></i> Clean Backups
+								</button>
+							</div>
+						</div>
+						<div class="card">
+							<h3>Download Files</h3>
+							<p class="sub">You have <b id="totalDnls"></b> download files (<b id="dnlsSize"></b>) stored.</p>
+							<p class="sub">They’ll auto-delete in a day, or you can clear them now with Clean below.</p>
+							<div style="display:flex; gap:8px; flex-wrap: wrap; margin-top:8px;">
+								<button class="btn btn-secondary" id="dnlDelete">
+									<i class="fa-solid fa-trash"></i> Clean Downloads
+								</button>
+							</div>
+						</div>
+
+					</div>
+					<div class="card" style="margin-top:14px;">
+						<h3>Recent Backups</h3>
+						<div class="table-wrap" id="recentBackupsWrap">
+							<table id="recentBackupsTbl">
+								<thead><tr><th>File</th><th>Size</th><th>Time</th><th>Status</th><th>Action</th></tr></thead>
+								<tbody></tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+				<section id="page-databases" class="section">
+					<div class="card">
+						<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+							<div>
+								<h3>Databases</h3>
+								<div class="sub">Manage DB credentials used for backups.</div>
+							</div>
+							<div style="display:flex; gap:8px; flex-wrap: wrap;">
+								<button class="btn" id="addUser"><i class="fa-solid fa-database"></i> Add</button>
+							</div>
+						</div>
+						<div class="table-wrap" style="margin-top:12px;">
+							<table id="usersTbl">
+								<thead><tr><th data-sort="name">Name</th><th>Host</th><th>Username</th><th>Password</th><th>DB</th><th></th></tr></thead>
+								<tbody></tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+				<section id="page-backups" class="section">
+					<div class="card">
+						<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+							<div>
+								<h3>Backups</h3>
+								<div class="sub">List of generated backups with size & time.</div>
+							</div>
+							<div style="display:flex; gap:8px; flex-wrap: wrap;">
+								<button class="btn" id="uploadBackup">
+									<i class="fa-solid fa-upload"></i> Upload Backup
+								</button>
+								<input type="file" id="fileInput" accept=".bkp" style="display: none;"/>
+							</div>
+						</div>
+						<div class="table-wrap" style="margin-top:12px;">
+							<table id="backupsTbl">
+								<thead><tr><th>File</th><th>Size</th><th>Time</th><th>Status</th><th></th></tr></thead>
+								<tbody></tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+				<section id="page-logs" class="section">
+					<div class="card">
+						<h3>Error Logs</h3>
+						<div class="sub">Backup failures & SQL login issues.</div>
+						<div class="table-wrap" style="margin-top:12px;">
+							<table id="logsTbl">
+								<thead><tr><th>Time</th><th>Type</th><th>Message</th></tr></thead>
+								<tbody></tbody>
+							</table>
+						</div>
+						<div style="display:flex; gap:8px; margin-top:12px;">
+							<button class="btn btn-secondary" id="clearLogs">
+								<i class="fa-solid fa-eraser"></i> Clear Logs
+							</button>
+						</div>
+					</div>
+				</section>
+				<section id="page-bot" class="section">
+					<div class="card">
+						<h3>Telegram Bot</h3>
+						<div class="grid cols-2" style="margin-top:8px;">
+							<div class="row">
+								<label>Bot Token</label>
+								<input class="input" id="botToken" placeholder="123456789:ABCDEF...">
+							</div>
+							<div class="row">
+								<label>User/Chat ID</label>
+								<input class="input" id="botChat" placeholder="123456789">
+							</div>
+						</div>
+						<div style="display:flex; gap:8px; margin-top:12px;">
+							<button class="btn" id="saveBot"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+							<button class="btn btn-secondary" id="testBot"><i class="fa-solid fa-paper-plane"></i> Test</button>
+						</div>
+						<div class="footnote">Add your Telegram bot token and chat ID to upload the backup to Telegram.</div>
+					</div>
+				</section>
+				<section id="page-cron" class="section">
+					<div class="card">
+						<h3>Cron Setup</h3>
+						<div class="grid cols-2" style="margin-top:8px;">
+							<div class="row">
+								<label>Frequency</label>
+								<select id="cronFreq" class="input" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">
+									<option value="hourly">Hourly</option>
+									<option value="daily" selected>Daily</option>
+									<option value="weekly">Weekly</option>
+									<option value="monthly">Monthly</option>
+								</select>
+							</div>
+							<div class="row">
+								<label>At (HH:MM)</label>
+								<input id="cronAt" class="input" value="02:00"  style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">
+							</div>
+						</div>
+						<div class="row" style="margin-top:10px;">
+							<label>Command</label>
+							<div class="input" id="cronCommand" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;"></div>
+						</div>
+						<div class="row" style="margin-top:10px;">
+							<label>Cron URL</label>
+							<div class="input" id="cronUrl" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;"></div>
+						</div>
+						<div class="row" style="margin-top:12px;">
+							<label>Crontab line</label>
+							<div class="input" id="cronLine" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace;"></div>
+						</div>
+						<div class="footnote">Copy the line above into <code>crontab -e</code>. If URL is set, you can also schedule a curl call.</div>
+					</div>
+				</section>
+				<section id="page-update" class="section">
+					<div class="card">
+						<h3>Update</h3>
+						<p class="sub">Check for latest version & changelog.</p>
+						<div style="display:flex; gap:8px; margin:10px 0;">
+							<button class="btn" id="checkUpdate"><i class="fa-solid fa-arrows-rotate"></i> Check Updates</button>
+							<span id="updateStatus" class="badge">Current: v1.0.1</span>
+						</div>
+						<div class="table-wrap" style="margin-top:12px;">
+							<table>
+								<thead><tr><th>Version</th><th>Date</th><th>Notes</th><th>Action</th></tr></thead>
+								<tbody id="updateTbl">
+									<tr><td>v1.0.1</td><td>2025-09-01</td><td>Light theme and thin scrollbar added.</td><td></td></tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+			</div>
+		</main>
+	</section>
+	<div class="toast" id="toast"></div>
+	<script>__SCRIPT__</script>
+</body>
+</html>

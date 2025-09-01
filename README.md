@@ -29,8 +29,8 @@ Encrypted configs, ZIP compression, Telegram uploads, and a clean dark dashboard
 
 1. **Download installer**
 
-   - [Download `sql-backup.php`]([https://raw.githubusercontent.com/USER/REPO/BRANCH/sql-backup.php](https://raw.githubusercontent.com/samiulalim1/sql-backup/refs/heads/main/src/installer/main.php))  
-   - Or use the [Download Page]([https://github.com/USER/REPO/releases](https://samiulalim1.github.io/sql-backup/))
+   - [Download `sql-backup.php`](https://raw.githubusercontent.com/samiulalim1/sql-backup/refs/heads/main/src/installer/main.php)
+   - Or use the [Download Page](https://samiulalim1.github.io/sql-backup/)
 
 2. **Upload to your server**
 

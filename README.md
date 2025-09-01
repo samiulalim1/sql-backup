@@ -38,7 +38,7 @@ Encrypted configs, ZIP compression, Telegram uploads, and a clean dark dashboard
 
 3. **Run installer**
 
-   Visit:  https://yourdomain.com/sql-backup.php
+   Visit:  `https://yourdomain.com/sql-backup.php`
 
   - Step 1: Requirements check ✅  
   - Step 2: Create admin user & password  

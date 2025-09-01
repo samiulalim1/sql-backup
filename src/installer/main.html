@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>SQL Backup Panel</title>
+	<meta property="og:url" content="./">
+	<meta name="theme-color" content="#12182b">
+	<meta name="robots" content="noindex,follow">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="msapplication-TileColor" content="#12182b">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<link rel="icon" href="https://samiulalim1.github.io/sql-backup/files/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link href="https://samiulalim1.github.io/sql-backup/files/install.css" rel="stylesheet">
+	<meta property="og:image" content="https://samiulalim1.github.io/sql-backup/files/icon.png">
+	<link rel="shortcut icon" href="https://samiulalim1.github.io/sql-backup/files/favicon.ico">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+	<script>__REQUREMENTS__</script>
+</head>
+<body>
+	<section id="loader">
+		<div class="loaderBlur"></div>
+		<div class="loaderSpinner"></div>
+	</section>
+	<section id="installView">
+		<div class="install-card">
+			<div class="install-head">
+				<div class="logo">
+					<i class="fa-solid fa-database"></i>
+				</div>
+				<div>
+					<h1>SQL Backup Panel</h1>
+					<p class="p-muted">Secure your databases with one click backups.</p>
+				</div>
+			</div>
+			<div id="slider" class="stepper" style="transform: translateX(0%);">
+				<div class="step" id="requirements">
+					<div class="p-muted" style="margin:0 0 10px;">Requirements</div>
+					<div class="max-200">
+						<div class="req">
+							<span>PHP 7.4+</span>
+							<span id="php">
+								<i class="fa-solid"></i>
+							</span>
+						</div>
+						<div class="req">
+							<span>Extension: mysqli</span>
+							<span id="mysqli">
+								<i class="fa-solid"></i>
+							</span>
+						</div>
+						<div class="req">
+							<span>Extension: openssl</span>
+							<span id="openssl">
+								<i class="fa-solid"></i>
+							</span>
+						</div>
+						<div class="req">
+							<span>Extension: zip</span>
+							<span id="zip">
+								<i class="fa-solid"></i>
+							</span>
+						</div>
+						<div class="req">
+							<span>Extension: curl</span>
+							<span id="curl">
+								<i class="fa-solid"></i>
+							</span>
+						</div>
+						<div class="req">
+							<span>Extension: fileinfo</span>
+							<span id="fileinfo">
+								<i class="fa-solid"></i>
+							</span>
+						</div>
+						<div class="req">
+							<span>Base folder writable</span>
+							<span id="writable">
+								<i class="fa-solid"></i>
+							</span>
+						</div>
+					</div>	
+					<div class="row mt-10">
+						<button id="showVersions" class="btn">
+							<i class="fa-solid fa-arrow-right"></i> Next
+						</button>
+						<button id="reload" class="btn" style="display:none">
+							<i class="fa-solid fa-arrows-rotate"></i> Reload
+						</button>
+					</div>
+				</div>
+				<div class="step" id="version">
+					<div class="row">
+						<label>Select a version</label>
+						<select id="selectedVersion" class="input code"></select>
+						<label>Version Info:</label>
+					</div>
+					<div class="p-muted code m-5-10">
+						<b>Type: </b> <span id="type"></span>
+					</div>
+					<div class="p-muted code m-5-10">
+						<b>Date: </b> <span id="date"></span>
+					</div>
+					<div class="p-muted code m-5-10">
+						<b>Note: </b> <span id="notes"></span>
+					</div>
+					<div class="row mt-10">
+						<button id="showInstall" class="btn">
+							<i class="fa-solid fa-arrow-right"></i> Next
+						</button>
+					</div>
+				</div>
+				<div class="step" id="install">
+					<div class="row">
+						<input class="input" id="loginUser" type="text" placeholder="Username">
+						<input class="input" id="loginPass" type="pssword" placeholder="New Password">
+						<input class="input" id="confirmPass" type="pssword" placeholder="confirm Password">
+						<button id="installBtn" class="btn">
+							<i class="fa-solid fa-plug-circle-bolt"></i> Install
+						</button>
+					</div>
+					<div class="p-muted" style="margin-top:15px;">Set a strong username and password to login to the panel.</div>
+				</div>
+				<div class="step" id="completed">
+					<label>Install Completed</label>
+					<div class="p-muted code m-5-10">
+						<b>Step 1: </b> Add your database to the panel.
+					</div>
+					<div class="p-muted code m-5-10">
+						<b>Step 2: </b> Set your Telegram Bot Token and Chat ID for backup.
+					</div>
+					<div class="p-muted code m-5-10">
+						<b>Step 3: </b> Don't forget to add a cron job to automatically backup after a scheduled time.
+					</div>
+					<div class="row mt-10">
+						<button id="done" class="btn">
+							<i class="fa-solid fa-check"></i> Done
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="https://samiulalim1.github.io/sql-backup/files/install.js"></script>
+</body>
+</html>
